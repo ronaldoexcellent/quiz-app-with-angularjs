@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Quiz-App" ng-controller="App-Ctrl" ng-cloak>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../styles/tailwind.min.css" rel="stylesheet">
+        <title> {{ appname }} </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <!-- <script src="../../angular-1.8.2/angular.min.js"></script> -->
+    </head>
+
+    <body class="bg-gray-400 flex items-center justify-center h-screen">
+        <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md grid grid-flow-row auto-rows-max">
+            <h1 align="center" class="text-2xl font-bold mb-4 underline italic animate-pulse"> {{ appname }} </h1>
+
+            <button ng-click="start=true" ng-hide="start" class="hover:bg-green-900 place-self-center bg-green-600 text-white px-4 py-2 mt-4 rounded animate-bounce">Start Quiz!</button>
+
+            <div ng-show="start" id="quiz-end" class="select-none">
+                <h2 class="font-semibold text-lg font-bold mb-px">{{ q[qIndex].no + ". " + q[qIndex].question }}</h2>
+
+                <div class="grid gap-1 grid-cols-2 ml-2 mr-2 py-2 border-b border-black">
+                    <ul ng-repeat="(l, o) in q[qIndex].options">
+                        <li class="cursor-pointer ml-2 hover:bg-black hover:text-white rounded-lg text-lg w-full p-3 font-semibold" val="{{l}}" ng-click="Quiz.Selected($event)" key="{{l}}">
+                            {{ l }}. {{ o }}
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="text-center text-lg italic mb-2 font-bold">{{ status }}</div>
+
+                <div class="ml-4 mr-4 mt-2 py-2 font-bold">
+                    <button ng-click="Quiz.CheckAns()" class="font-bold text-lg bg-blue-600 hover:bg-blue-800 text-white px-4 py-2">Submit</button>
+                    <button ng-click="Quiz.Next()" ng-show="nxt" class="float-right justify-self-end text-lg bg-purple-800 hover:bg-purple-600 text-white px-4 py-2">Next</button>
+                </div>
+            </div>
+
+            <div ng-show="showScores" class="text-center text-lg italic font-semibold">You scored {{ score }} out of {{ q.length }} </div>
+            <button ng-click="Quiz.Restart()" ng-show="restart" class="bg-yellow-500 font-bold hover:text-white hover:bg-yellow-700 px-4 py-2 mt-2 rounded">Restart Quiz</button>
+        </div>
+        <script src="../script/app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Redirecting...</title>
+        <link href="styles/tailwind.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <!-- <script src="./../angular-1.8.2/angular.js"></script> -->
+    </head>
+    <body class="h-screen w-screen flex items-center justify-center" ng-app="myApp" ng-controller="myCtrl" ng-cloak ng-init="go=false">
+        <div ng-show="go" class="h-36 w-36 p-6 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
+        <h1 ng-show="go" class="text-blue-700 animate-pulse absolute text-6xl font-bold font-sans" ng-model="countdown">
+            {{ val }}
+        </h1>
+        <button class="bg-yellow-500 font-bold hover:text-white text-2xl hover:bg-yellow-700 px-4 py-2" ng-hide="go" ng-click="gotoQuiz()">Go To Quiz!</button>
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function($scope, $interval, $timeout) {
+                $scope.val = 5;
+                $scope.gotoQuiz = () => {
+                    $scope.go = true;
+                    $interval(() => $scope.val = $scope.val == 0 ? 0 : $scope.val- 1, 1000);
+                    $timeout(() => window.location.replace('main/quiz.html'), 6000);
+                };
+            });
+        </script>
+    </body>
+</html>
